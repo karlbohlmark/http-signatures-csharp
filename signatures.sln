@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "signatures", "signatures\signatures.csproj", "{1564633E-54F4-407F-82AD-2F81899A1B1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpSignatures", "HttpSignatures\HttpSignatures.csproj", "{96B33F20-4730-40A6-AAE6-52AEBEC5726C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpSignatureTests", "HttpSignatureTests\HttpSignatureTests.csproj", "{2F145630-7C37-4C58-B09A-9673B88E0959}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1564633E-54F4-407F-82AD-2F81899A1B1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1564633E-54F4-407F-82AD-2F81899A1B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1564633E-54F4-407F-82AD-2F81899A1B1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1564633E-54F4-407F-82AD-2F81899A1B1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F145630-7C37-4C58-B09A-9673B88E0959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F145630-7C37-4C58-B09A-9673B88E0959}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F145630-7C37-4C58-B09A-9673B88E0959}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F145630-7C37-4C58-B09A-9673B88E0959}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96B33F20-4730-40A6-AAE6-52AEBEC5726C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96B33F20-4730-40A6-AAE6-52AEBEC5726C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96B33F20-4730-40A6-AAE6-52AEBEC5726C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96B33F20-4730-40A6-AAE6-52AEBEC5726C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = signatures\signatures.csproj
+	EndGlobalSection
+EndGlobal
