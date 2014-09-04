@@ -10,18 +10,18 @@ namespace HttpSignatures
 {
 
 	public interface IHttpSignatureStringExtractor {
-		string ExtractSignatureString(HttpRequestBase request, ISignatureSpecification spec);
+		string ExtractSignatureString(HttpRequest request, ISignatureSpecification spec);
 	}
 
 	public class HttpSignatureStringExtractor: IHttpSignatureStringExtractor {
-		public string ExtractSignatureString (HttpRequestBase request, ISignatureSpecification signatureAuth)
+		public string ExtractSignatureString (HttpRequest request, ISignatureSpecification signatureAuth)
 		{
 			var headerStrings = (from h in signatureAuth.Headers
 				select string.Format("{0}: {1}", h, GetHeaderValue (h, request))).ToList();
 			return string.Join("\n", headerStrings);
 		}
 
-		private string GetHeaderValue(string header, HttpRequestBase request) {
+		private string GetHeaderValue(string header, HttpRequest request) {
 			switch (header) {
 				case "(request-target)":
 					return request.HttpMethod.ToLower () + " " + request.Path;

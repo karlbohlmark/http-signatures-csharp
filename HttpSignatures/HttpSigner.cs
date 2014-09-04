@@ -10,7 +10,7 @@ namespace HttpSignatures
 {
 
 	public interface IHttpSigner {
-		string Signature(HttpRequestBase r, ISignatureSpecification spec);
+		VerifiedSignature Signature(HttpRequest r, ISignatureSpecification spec, IKeyStore keyStore);
 	}
 
 	public class HttpSigner : IHttpSigner
@@ -28,9 +28,15 @@ namespace HttpSignatures
 			this.authorizationParser = authorizationParser;
 		}
 
-		public string Signature (HttpRequestBase r, ISignatureSpecification spec)
+
+        public HttpSigner(IAuthorizationParser authorizationParser, IHttpSignatureStringExtractor signatureStringExtractor) : this(authorizationParser, signatureStringExtractor, null)
+        {}
+
+		public VerifiedSignature Signature (HttpRequest r, ISignatureSpecification spec, IKeyStore keyStore)
 		{
 			var authorization = r.Headers.Get("Authorization");
+		    if (string.IsNullOrEmpty(authorization)) throw new SignatureMissingException("No authorization header present");
+
 			var signatureAuth = authorizationParser.Parse(authorization);
 			if (spec == null) {
 				spec = signatureAuth;
@@ -38,19 +44,19 @@ namespace HttpSignatures
 				if (spec.Algorithm != signatureAuth.Algorithm) {
 					throw new InvalidSignatureException(string.Format("Algorith mismatch. Wanted: {0}, found: {1}", spec.Algorithm, signatureAuth.Algorithm));
 				}
-				var missingHeaders = spec.Headers.Where(h=> !signatureAuth.Headers.Contains(h));
+				var missingHeaders = spec.Headers.Where(h=> !signatureAuth.Headers.Contains(h)).ToList();
 				if (missingHeaders.Any()) {
 					throw new InvalidSignatureException(string.Format("Missing headers in signature: {0}", string.Join(",", missingHeaders)));
 				}
 			}
-			var signatureString = signatureStringExtractor.ExtractSignatureString (r, spec);
 
-			var hmac = HMACSHA256.Create (signatureAuth.Algorithm.Replace("-", "").ToUpper());
+			var signatureString = signatureStringExtractor.ExtractSignatureString (r, spec);
+			var hmac = HMAC.Create (signatureAuth.Algorithm.Replace("-", "").ToUpper());
 			hmac.Initialize ();
 			hmac.Key = Convert.FromBase64String(keyStore.Get (signatureAuth.KeyId));
 			var bytes = hmac.ComputeHash (new MemoryStream(Encoding.UTF8.GetBytes(signatureString)));
 			var signature = Convert.ToBase64String (bytes);
-			return signature;
+            return new VerifiedSignature(signatureAuth, signature == signatureAuth.Signature);
 		}
 	}
 	

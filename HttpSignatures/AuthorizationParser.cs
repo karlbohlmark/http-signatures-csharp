@@ -139,11 +139,11 @@ namespace HttpSignatures
 		public IEnumerable<string> Headers {get;set;}
 	}
 
-	public class InvalidHeaderException : Exception {
+	public class InvalidHeaderException : InvalidSignatureException {
 		public InvalidHeaderException(string message) : base(message) {}
 	}
 
-	public class InvalidParamsException : Exception {
+	public class InvalidParamsException : InvalidSignatureException {
 		public InvalidParamsException(string message) : base(message) {}
 	}
 

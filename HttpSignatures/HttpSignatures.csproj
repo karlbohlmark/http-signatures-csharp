@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -31,14 +31,18 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HttpSignature.cs" />
+    <Compile Include="HttpSignatureConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HttpSigner.cs" />
     <Compile Include="HttpSignatureStringExtractor.cs" />
     <Compile Include="AuthorizationParser.cs" />
     <Compile Include="KeyStore.cs" />
+    <Compile Include="SignatureMissingException.cs" />
     <Compile Include="SignatureSpecification.cs" />
     <Compile Include="InvalidSignatureException.cs" />
     <Compile Include="SignatureAuthorizationVerifier.cs" />
+    <Compile Include="VerifiedSignature.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
