@@ -24,7 +24,7 @@ namespace HttpSignatures
 		private string GetHeaderValue(string header, HttpRequest request) {
 			switch (header) {
 				case "(request-target)":
-					return request.HttpMethod.ToLower () + " " + request.Path;
+					return request.HttpMethod.ToLower () + " " + request.RawUrl;
 				default:
 					return request.Headers.Get (header);
 			}
