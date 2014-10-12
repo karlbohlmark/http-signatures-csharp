@@ -1,10 +1,4 @@
-using System;
-using System.Linq;
-using System.Web;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.IO;
-using System.Text;
 
 namespace HttpSignatures
 {
@@ -14,7 +8,7 @@ namespace HttpSignatures
 	}
 
 	public class KeyStore : IKeyStore {
-		Dictionary<string, string> keys;
+	    readonly Dictionary<string, string> keys;
 
 		public KeyStore(Dictionary<string,string> keys){
 			this.keys = keys;
