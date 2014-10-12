@@ -19,18 +19,11 @@ namespace HttpSignatures
 
 		IHttpSignatureStringExtractor signatureStringExtractor;
 
-		IKeyStore keyStore;
-
-		public HttpSigner (IAuthorizationParser authorizationParser, IHttpSignatureStringExtractor signatureStringExtractor, IKeyStore keyStore)
+		public HttpSigner (IAuthorizationParser authorizationParser, IHttpSignatureStringExtractor signatureStringExtractor)
 		{
-			this.keyStore = keyStore;
 			this.signatureStringExtractor = signatureStringExtractor;
 			this.authorizationParser = authorizationParser;
 		}
-
-
-        public HttpSigner(IAuthorizationParser authorizationParser, IHttpSignatureStringExtractor signatureStringExtractor) : this(authorizationParser, signatureStringExtractor, null)
-        {}
 
 		public VerifiedSignature Signature (HttpRequest r, ISignatureSpecification spec, IKeyStore keyStore)
 		{

@@ -14,8 +14,14 @@ namespace HttpSignatures
 	}
 
 	public class KeyStore : IKeyStore {
+		Dictionary<string, string> keys;
+
+		public KeyStore(Dictionary<string,string> keys){
+			this.keys = keys;
+		}
+
 		public string Get (string KeyId) {
-			return "MzJhMDYxN2FhYjRjOWZlNzI1ZjFiNWJjNDQxMjkxMTgwYWQyNWI3MyAgLQo=";
+			return this.keys [KeyId];
 		}
 	}
 	

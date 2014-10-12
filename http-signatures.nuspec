@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>HttpSignatures</id>
+    <version>1.0.o</version>
+    <title>Http Signatures</title>
+    <description>Http Signatures is a server side implementation of http://tools.ietf.org/html/draft-cavage-http-signatures-03 for .NET</description>
+    <authors>Karl Böhlmark</authors>
+    <language>en-US</language>
+    <projectUrl>http://github.com/karlbohlmark/http-signatures-csharp</projectUrl>
+    <licenseUrl>https://raw.github.com/karlbohlmark/http-signatures-csharp/master/LICENSE.md</licenseUrl>
+    <tags>json</tags>
+  </metadata>
+</package>
