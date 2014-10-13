@@ -30,5 +30,10 @@ namespace HttpSignatures
         {
             Signer.Sign(request, spec, keyId, key);
         }
+
+        public static void Sign(IRequest request, ISignatureSpecification spec, string keyId, string key)
+        {
+            Signer.Sign(request, spec, keyId, key);
+        }
     }
 }
