@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Web;
 
@@ -23,6 +24,11 @@ namespace HttpSignatures
         public static VerifiedSignature VerifiedSignature(HttpRequest request, ISignatureSpecification spec, IKeyStore keyStore)
         {
             return Signer.Signature(request, spec, keyStore);         
+        }
+
+        public static void Sign(HttpRequestMessage request, ISignatureSpecification spec, string keyId, string key)
+        {
+            Signer.Sign(request, spec, keyId, key);
         }
     }
 }

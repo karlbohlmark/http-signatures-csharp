@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -10,7 +11,8 @@ namespace HttpSignatures
 {
 
 	public interface IHttpSigner {
-		VerifiedSignature Signature(HttpRequest r, ISignatureSpecification spec, IKeyStore keyStore);
+        VerifiedSignature Signature(IRequest r, ISignatureSpecification spec, IKeyStore keyStore);
+        VerifiedSignature Signature(HttpRequest r, ISignatureSpecification spec, IKeyStore keyStore);
 	}
 
 	public class HttpSigner : IHttpSigner
@@ -25,9 +27,9 @@ namespace HttpSignatures
 			this.authorizationParser = authorizationParser;
 		}
 
-		public VerifiedSignature Signature (HttpRequest r, ISignatureSpecification spec, IKeyStore keyStore)
+		public VerifiedSignature Signature (IRequest r, ISignatureSpecification spec, IKeyStore keyStore)
 		{
-			var authorization = r.Headers.Get("Authorization");
+			var authorization = r.GetHeader("authorization");
 		    if (string.IsNullOrEmpty(authorization)) throw new SignatureMissingException("No authorization header present");
 
 			var signatureAuth = authorizationParser.Parse(authorization);
@@ -43,14 +45,48 @@ namespace HttpSignatures
 				}
 			}
 
-			var signatureString = signatureStringExtractor.ExtractSignatureString (r, spec);
-			var hmac = HMAC.Create (signatureAuth.Algorithm.Replace("-", "").ToUpper());
-			hmac.Initialize ();
-			hmac.Key = Convert.FromBase64String(keyStore.Get (signatureAuth.KeyId));
-			var bytes = hmac.ComputeHash (new MemoryStream(Encoding.UTF8.GetBytes(signatureString)));
-			var signature = Convert.ToBase64String (bytes);
+		    var signature = CalculateSignature(r, spec, keyStore.Get(signatureAuth.KeyId));
             return new VerifiedSignature(signatureAuth, signature == signatureAuth.Signature);
 		}
+
+	    public string CalculateSignature(IRequest r, ISignatureSpecification spec, string key)
+	    {
+	        var algorithm = spec.Algorithm;
+            var signatureString = signatureStringExtractor.ExtractSignatureString(r, spec);
+            var hmac = HMAC.Create(algorithm.Replace("-", "").ToUpper());
+            hmac.Initialize();
+            hmac.Key = Convert.FromBase64String(key);
+            var bytes = hmac.ComputeHash(new MemoryStream(Encoding.UTF8.GetBytes(signatureString)));
+            var signature = Convert.ToBase64String(bytes);
+	        return signature;
+	    }
+
+	    public void Sign(IRequest r, ISignatureSpecification spec, string keyId, string base64Key)
+	    {
+            var signature = CalculateSignature(r, spec, base64Key);
+	        var auth = FormatAuthorization(spec, signature);
+            r.SetHeader("Authorization", auth);
+	    }
+
+        public void Sign(HttpRequestMessage r, ISignatureSpecification spec, string keyId, string base64Key)
+        {
+            var req = new HttpRequestMessageWrapper(r);
+            Sign(req, spec, keyId, base64Key);
+        }
+
+	    private string FormatAuthorization(ISignatureSpecification spec, string signature)
+	    {
+	        return string.Format("Signature keyId=\"{0}\",algorithm=\"{1}\",headers=\"{2}\",signature=\"{3}\"",
+                spec.KeyId,
+                spec.Algorithm,
+                string.Join(" ", spec.Headers),
+                signature);
+	    }
+
+	    public VerifiedSignature Signature(HttpRequest r, ISignatureSpecification spec, IKeyStore keyStore)
+	    {
+	        return Signature(Request.FromHttpRequest(r), spec, keyStore);
+	    }
 	}
 	
 }

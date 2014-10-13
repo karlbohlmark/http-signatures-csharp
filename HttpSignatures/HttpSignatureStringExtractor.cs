@@ -10,23 +10,23 @@ namespace HttpSignatures
 {
 
 	public interface IHttpSignatureStringExtractor {
-		string ExtractSignatureString(HttpRequest request, ISignatureSpecification spec);
+		string ExtractSignatureString(IRequest request, ISignatureSpecification spec);
 	}
 
 	public class HttpSignatureStringExtractor: IHttpSignatureStringExtractor {
-		public string ExtractSignatureString (HttpRequest request, ISignatureSpecification signatureAuth)
+		public string ExtractSignatureString (IRequest request, ISignatureSpecification signatureAuth)
 		{
 			var headerStrings = (from h in signatureAuth.Headers
 				select string.Format("{0}: {1}", h, GetHeaderValue (h, request))).ToList();
 			return string.Join("\n", headerStrings);
 		}
 
-		private string GetHeaderValue(string header, HttpRequest request) {
+		private string GetHeaderValue(string header, IRequest request) {
 			switch (header) {
 				case "(request-target)":
-					return request.HttpMethod.ToLower () + " " + request.RawUrl;
+					return request.Method.ToString().ToLower () + " " + request.Path;
 				default:
-					return request.Headers.Get (header);
+					return request.GetHeader(header);
 			}
 		}
 	}

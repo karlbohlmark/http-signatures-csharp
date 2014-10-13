@@ -9,9 +9,9 @@ namespace HttpSignatureTests
 	public class Test
 	{
 		[Test ()]
-		public void TestCase ()
+		public void CanSignOutgoingRequest ()
 		{
-
+        
 		}
 	}
 
