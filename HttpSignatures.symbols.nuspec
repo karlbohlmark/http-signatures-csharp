@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>HttpSignatures</id>
-    <version>1.0.3</version>
+    <version>1.0.5</version>
     <title>Http Signatures</title>
     <description>Http Signatures is a server side implementation of http://tools.ietf.org/html/draft-cavage-http-signatures-03 for .NET</description>
     <authors>Karl Böhlmark</authors>
@@ -10,9 +10,10 @@
     <projectUrl>http://github.com/karlbohlmark/http-signatures-csharp</projectUrl>
     <licenseUrl>https://raw.github.com/karlbohlmark/http-signatures-csharp/master/LICENSE.md</licenseUrl>
     <tags>Http Signatures</tags>
-    
   </metadata>
   <files>
-    <file src="HttpSignatures\bin\release\HttpSignatures.dll" target="lib/net45" />
+    <file src="HttpSignatures\bin\Debug\HttpSignatures.dll" target="lib/net45" />
+    <file src="HttpSignatures\bin\Debug\HttpSignatures.pdb" target="lib/net45" />
+    <file src="HttpSignatures\*.cs" target="src" />
   </files>
 </package>

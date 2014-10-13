@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{82712024-C73E-4BA3-8338-E9F572908D4B}"
 	ProjectSection(SolutionItems) = preProject
 		http-signatures.nuspec = http-signatures.nuspec
+		HttpSignatures.symbols.nuspec = HttpSignatures.symbols.nuspec
 	EndProjectSection
 EndProject
 Global

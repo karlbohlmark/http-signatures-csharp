@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
@@ -63,6 +64,11 @@ namespace HttpSignatures
 
 	    public void Sign(IRequest r, ISignatureSpecification spec, string keyId, string base64Key)
 	    {
+            //TODO: spec should not contain key id, currently keyId is taken from spec here
+	        if (string.IsNullOrEmpty(spec.KeyId))
+	        {
+	            throw new NotImplementedException("For now, the spec must supply a keyId");
+	        }
             var signature = CalculateSignature(r, spec, base64Key);
 	        var auth = FormatAuthorization(spec, signature);
             r.SetHeader("Authorization", auth);
