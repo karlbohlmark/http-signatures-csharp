@@ -198,5 +198,15 @@ namespace HttpSignatures
 				return Algorithm.Split('-')[1];
 			}
 		}
-	}
+
+
+        public string Realm
+        {
+            get
+            {
+                return authorization.Params["realm"];
+            }
+        }
+
+    }
 }

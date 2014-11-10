@@ -13,10 +13,12 @@ namespace HttpSignatures
             KeyId = signatureAuth.KeyId;
             Algorithm = signatureAuth.Algorithm;
             Signature = signatureAuth.Signature;
+            Realm = string.Empty;
             Headers = new List<string>(signatureAuth.Headers);
         }
 
         public string KeyId { get; private set; }
+        public string Realm { get; private set; }
         public IEnumerable<string> Headers { get; private set; }
         public string Algorithm { get; private set; }
         public string HashAlgorithm { get; private set; }

@@ -14,10 +14,16 @@ namespace HttpSignatures
 		IEnumerable<string> Headers { get; }
 		string Algorithm { get; }
 		string HashAlgorithm { get; }
+	    string Realm { get; }
 	}
 
 	public class SignatureSpecification: ISignatureSpecification {
-		public string KeyId {
+	    public SignatureSpecification()
+	    {
+	        Realm = "default";
+	    }
+
+	    public string KeyId {
 			get;
 			set;
 		}
@@ -27,7 +33,10 @@ namespace HttpSignatures
 			set;
 		}
 
+
 		public string Algorithm {get;set;}
+        public string Realm { get; set; }
+
 
 		public string HashAlgorithm {
 			get {
