@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>HttpSignatures</id>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <title>Http Signatures</title>
     <description>Http Signatures is an implementation of http://tools.ietf.org/html/draft-cavage-http-signatures-03 for .NET</description>
     <authors>Karl Böhlmark</authors>
