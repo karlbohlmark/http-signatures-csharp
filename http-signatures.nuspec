@@ -4,16 +4,18 @@
     <id>HttpSignatures</id>
     <version>1.1.1</version>
     <title>Http Signatures</title>
-    <description>Http Signatures is a server side implementation of http://tools.ietf.org/html/draft-cavage-http-signatures-03 for .NET</description>
+    <description>Http Signatures is an implementation of http://tools.ietf.org/html/draft-cavage-http-signatures-03 for .NET</description>
     <authors>Karl Böhlmark</authors>
     <language>en-US</language>
     <projectUrl>http://github.com/karlbohlmark/http-signatures-csharp</projectUrl>
     <licenseUrl>https://raw.github.com/karlbohlmark/http-signatures-csharp/master/LICENSE.md</licenseUrl>
     <tags>Http Signatures</tags>
+    <dependencies>
+      <dependency id="Common.Logging" version="2.3.1" />
+    </dependencies>    
   </metadata>
+
   <files>
-    <file src="HttpSignatures\bin\Debug\HttpSignatures.dll" target="lib/net45" />
-    <file src="HttpSignatures\bin\Debug\HttpSignatures.pdb" target="lib/net45" />
-    <file src="HttpSignatures\*.cs" target="src" />
+    <file src="HttpSignatures\bin\release\HttpSignatures.dll" target="lib/net45" />
   </files>
 </package>

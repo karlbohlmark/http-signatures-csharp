@@ -7,9 +7,10 @@ namespace HttpSignatures
 {
     public class VerifiedSignature : ISignatureAuthorization
     {
-        internal VerifiedSignature(ISignatureAuthorization signatureAuth, bool valid)
+        internal VerifiedSignature(ISignatureAuthorization signatureAuth, string expectedSignature)
         {
-            Valid = valid;
+            ExpectedSignature = expectedSignature;
+            Valid = (signatureAuth.Signature == expectedSignature);
             KeyId = signatureAuth.KeyId;
             Algorithm = signatureAuth.Algorithm;
             Signature = signatureAuth.Signature;
@@ -23,6 +24,7 @@ namespace HttpSignatures
         public string Algorithm { get; private set; }
         public string HashAlgorithm { get; private set; }
         public string Signature { get; private set; }
+        public string ExpectedSignature { get; private set; }
         public bool Valid { get; private set; }
     }
 }

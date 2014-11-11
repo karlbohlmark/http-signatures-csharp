@@ -47,7 +47,7 @@ namespace HttpSignatures
 			}
 
 		    var signature = CalculateSignature(r, spec, keyStore.Get(signatureAuth.KeyId));
-            return new VerifiedSignature(signatureAuth, signature == signatureAuth.Signature);
+            return new VerifiedSignature(signatureAuth, signature);
 		}
 
 	    public string CalculateSignature(IRequest r, ISignatureSpecification spec, string key)
